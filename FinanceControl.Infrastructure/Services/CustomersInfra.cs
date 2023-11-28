@@ -16,7 +16,7 @@ public sealed class CustomersInfra(FinanceDbContext context) : ICustomersInfra
             $"WHERE ClienteId = {id} ").FirstOrDefaultAsync();
     }
 
-    public async Task<Customers> GetAsyncById(string name)
+    public async Task<Customers> GetAsyncByName(string name)
     {
         return await context.Database.SqlQueryRaw<Customers>(
             "SELECT ClienteId, Nome, Telefone, DataVencimento, Indicacao, Observacao,Desconto " +
