@@ -1,5 +1,7 @@
 ﻿using FinancaControl.Domain.Entities;
 using FinanceControl.Infrastructure.Interfaces;
+using FinanceControl.Infrastructure.Interfaces.Base;
+using FinanceControl.Infrastructure.Services.Base;
 using Microsoft.EntityFrameworkCore;
 
 namespace FinanceControl.Infrastructure.Services;
