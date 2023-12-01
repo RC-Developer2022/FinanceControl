@@ -25,8 +25,6 @@ public class CustomersServices(ICustomersInfra context, IGenericInfra generic) :
         {
             throw new Exception(exception.Message);
         }
-
-        return null;
     }
 
     public async Task<CustomersDTO> GetAsyncByName(string name)
@@ -42,27 +40,80 @@ public class CustomersServices(ICustomersInfra context, IGenericInfra generic) :
         {
             throw new Exception(exception.Message);
         }
-
-        return null;
     }
 
-    public Task<List<CustomersDTO>> GetAsyncCustomers()
+    public async Task<List<CustomersDTO>> GetAsyncCustomers()
     {
-        throw new NotImplementedException();
+        try
+        {
+            var customer = await context.GetAsyncCustomers().ConfigureAwait(ConfigureAwaitOptions.ContinueOnCapturedContext);
+            if (customer == null) throw new Exception("Esse cliente não existe");
+
+            return mapper.Map<List<CustomersDTO>>(customer);
+        }
+        catch (Exception exception)
+        {
+            throw new Exception(exception.Message);
+        }
     }
 
-    public Task<CustomersDTO> AddPerson(CustomersDTO customersDto)
+    public async Task<CustomersDTO> AddCustomer(CustomersDTO customersDto)
     {
-        throw new NotImplementedException();
+        try
+        {
+            var customer = mapper.Map<Customers>(customersDto);
+
+            if (await context.GetAsyncById(customer.Id) == null)
+            {
+                generic.Add(customer);
+                if (await generic.SaveChangesAsync())
+                    return mapper.Map<CustomersDTO>(await context.GetAsyncById(customer.Id));
+            }
+
+            return null;
+        }
+        catch (Exception ex)
+        {
+            throw new Exception(ex.Message);
+        }
     }
 
-    public Task<CustomersDTO> UpdatePerson(CustomersDTO customersDto)
+    public async Task<CustomersDTO> UpdateCustomer(CustomersDTO customersDto)
     {
-        throw new NotImplementedException();
+        try
+        {
+            var customer = mapper.Map<Customers>(customersDto);
+
+            if (await context.GetAsyncById(customer.Id) == null)
+            {
+                generic.Update(customer);
+                if (await generic.SaveChangesAsync())
+                    return mapper.Map<CustomersDTO>(await context.GetAsyncById(customer.Id));
+            }
+
+            return null;
+        }
+        catch (Exception ex)
+        {
+            throw new Exception(ex.Message);
+        }
     }
 
-    public Task<bool> DeletePerson(int id)
+    public async Task<bool> DeleteCustomer(int id)
     {
-        throw new NotImplementedException();
+        try
+        {
+            var customers = await context.GetAsyncById(id);
+            if (customers == null)
+            {
+                generic.Delete(customers);
+                return await generic.SaveChangesAsync();   
+            }
+            return false;
+        }
+        catch(Exception ex)
+        {
+            throw new Exception(ex.Message);
+        }
     }
 }

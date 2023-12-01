@@ -6,5 +6,5 @@ public interface ICustomersInfra
 {
     Task<Customers?> GetAsyncById(int id);
     Task<Customers> GetAsyncByName(string name);
-    Task<List<Customers>> GetAsyncById();
+    Task<List<Customers>> GetAsyncCustomers();
 }

@@ -7,20 +7,19 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Mapper\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Compile Remove="Interfaces\Base\**" />
     <Compile Remove="MapperDtos.cs" />
+    <Compile Remove="Mapper\**" />
   </ItemGroup>
 
   <ItemGroup>
     <EmbeddedResource Remove="Interfaces\Base\**" />
+    <EmbeddedResource Remove="Mapper\**" />
   </ItemGroup>
 
   <ItemGroup>
     <None Remove="Interfaces\Base\**" />
+    <None Remove="Mapper\**" />
   </ItemGroup>
 
   <ItemGroup>

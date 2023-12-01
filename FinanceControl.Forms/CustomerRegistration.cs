@@ -1,8 +1,8 @@
 namespace FinanceControl.Forms
 {
-    public partial class Form1 : Form
+    public partial class CustomerRegistration : Form
     {
-        public Form1()
+        public CustomerRegistration()
         {
             InitializeComponent();
         }

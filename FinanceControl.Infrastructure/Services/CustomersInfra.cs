@@ -24,7 +24,7 @@ public sealed class CustomersInfra(FinanceDbContext context) : ICustomersInfra
             $"WHERE Nome = {name} ").FirstOrDefaultAsync();
     }
 
-    public async Task<List<Customers>> GetAsyncById()
+    public async Task<List<Customers>> GetAsyncCustomers()
     {
         return await context.Database.SqlQueryRaw<Customers>(
             "SELECT ClienteId , Nome , Telefone , DataVencimento , Indicacao , Observacao , Desconto " +
